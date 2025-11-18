@@ -1,0 +1,299 @@
+/* Animations for Nutcracker Character and UI */
+
+/* Idle Animation - Subtle breathing effect */
+.nutcracker-idle {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.01); }
+}
+
+/* Cracking Animation - Success! */
+.nutcracker-cracking .nutcracker-jaw {
+  animation: jawCrack 1.2s ease-in-out;
+}
+
+.nutcracker-cracking .arm.left {
+  animation: armCrackLeft 1.2s ease-in-out;
+}
+
+.nutcracker-cracking .arm.right {
+  animation: armCrackRight 1.2s ease-in-out;
+}
+
+.nutcracker-cracking .nut.cracking {
+  animation: nutCrackOpen 1.2s ease-in-out;
+}
+
+.nutcracker-cracking .nut-half.right {
+  animation: nutHalfSplit 1.2s ease-in-out;
+}
+
+@keyframes jawCrack {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  20% { transform: translateX(-50%) rotate(15deg); }
+  40% { transform: translateX(-50%) rotate(-5deg); }
+  60% { transform: translateX(-50%) rotate(10deg); }
+  80% { transform: translateX(-50%) rotate(-2deg); }
+  100% { transform: translateX(-50%) rotate(0deg); }
+}
+
+@keyframes armCrackLeft {
+  0% { transform: rotate(-20deg); }
+  30% { transform: rotate(-35deg); }
+  60% { transform: rotate(-25deg); }
+  100% { transform: rotate(-20deg); }
+}
+
+@keyframes armCrackRight {
+  0% { transform: rotate(20deg); }
+  30% { transform: rotate(35deg); }
+  60% { transform: rotate(25deg); }
+  100% { transform: rotate(20deg); }
+}
+
+@keyframes nutCrackOpen {
+  0% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+  70% { opacity: 1; transform: translateX(-50%) scale(0.9); }
+  100% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+}
+
+@keyframes nutHalfSplit {
+  0% { transform: rotate(0deg) translateX(0); }
+  60% { transform: rotate(15deg) translateX(5px); }
+  100% { transform: rotate(30deg) translateX(15px); opacity: 0; }
+}
+
+/* Broken Animation - Failure! */
+.nutcracker-broken .nutcracker-jaw {
+  animation: jawBreak 1.5s ease-in-out;
+}
+
+.nutcracker-broken .nutcracker-head {
+  animation: headShake 1.5s ease-in-out;
+}
+
+.nutcracker-broken .broken-pieces .piece1 {
+  animation: pieceFloat1 1.5s ease-out;
+}
+
+.nutcracker-broken .broken-pieces .piece2 {
+  animation: pieceFloat2 1.5s ease-out;
+}
+
+.nutcracker-broken .broken-pieces .piece3 {
+  animation: pieceFloat3 1.5s ease-out;
+}
+
+@keyframes jawBreak {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  15% { transform: translateX(-50%) rotate(-25deg); }
+  30% { transform: translateX(-50%) rotate(25deg); }
+  45% { transform: translateX(-50%) rotate(-20deg); }
+  60% { transform: translateX(-50%) rotate(15deg); }
+  75% { transform: translateX(-50%) rotate(-10deg); }
+  100% { transform: translateX(-50%) rotate(0deg) translateY(5px); }
+}
+
+@keyframes headShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
+  20%, 40%, 60%, 80% { transform: translateX(3px); }
+}
+
+@keyframes pieceFloat1 {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-20px, -30px) rotate(-180deg);
+  }
+}
+
+@keyframes pieceFloat2 {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(25px, -35px) rotate(200deg);
+  }
+}
+
+@keyframes pieceFloat3 {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-15px, -40px) rotate(-160deg);
+  }
+}
+
+/* UI Element Animations */
+
+/* Button hover glow */
+@keyframes buttonGlow {
+  0%, 100% { box-shadow: 0 0 5px currentColor; }
+  50% { box-shadow: 0 0 20px currentColor; }
+}
+
+/* Score increase animation */
+@keyframes scoreIncrease {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); color: var(--color-success); }
+  100% { transform: scale(1); }
+}
+
+/* Strike loss animation */
+@keyframes strikeLoss {
+  0% { transform: scale(1); opacity: 1; }
+  25% { transform: scale(1.3); opacity: 0.8; }
+  50% { transform: scale(0.8); opacity: 0.6; }
+  75% { transform: scale(1.1); opacity: 0.4; }
+  100% { transform: scale(1); opacity: 0.3; }
+}
+
+/* Text appear animation */
+@keyframes textAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glitch effect for retro feel */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Background pulse effect */
+@keyframes bgPulse {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Scanline effect for retro CRT monitor feel */
+.pixel-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.5;
+}
+
+/* Flicker effect for screen */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.98; }
+}
+
+.screen {
+  animation: flicker 0.15s infinite;
+}
+
+/* Loading animation */
+@keyframes loadingDots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+/* Star burst effect for level complete */
+@keyframes starburst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+/* Utility classes for animations */
+.animate-in {
+  animation: textAppear 0.5s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-glitch {
+  animation: glitch 0.3s ease-in-out;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .pixel-container::before {
+    animation: none;
+  }
+
+  .screen {
+    animation: none;
+  }
+}
