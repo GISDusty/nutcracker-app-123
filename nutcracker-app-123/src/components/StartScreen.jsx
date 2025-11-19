@@ -11,6 +11,25 @@ function StartScreen({ onStartGame, onShowLeaderboard, onShowHelp }) {
 
       <div className="character-display">
         <Nutcracker state="idle" />
+
+        {/* Pile of Nuts Decoration */}
+        <div className="pile-of-nuts">
+          <div className="decor-nut nut-1">
+            <div className="nut-shell">
+              <div className="nut-texture"></div>
+            </div>
+          </div>
+          <div className="decor-nut nut-2">
+            <div className="nut-shell">
+              <div className="nut-texture"></div>
+            </div>
+          </div>
+          <div className="decor-nut nut-3">
+            <div className="nut-shell">
+              <div className="nut-texture"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="button-group">

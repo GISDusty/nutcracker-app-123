@@ -43,12 +43,12 @@ function AnswerNut({
     >
       <div className="nut-shell">
         <div className="nut-texture"></div>
+        <div className="keyboard-number pixel-text-small">
+          {index + 1}
+        </div>
       </div>
       <div className="answer-value pixel-text">
         {answer}
-      </div>
-      <div className="keyboard-number pixel-text-small">
-        {index + 1}
       </div>
     </button>
   );

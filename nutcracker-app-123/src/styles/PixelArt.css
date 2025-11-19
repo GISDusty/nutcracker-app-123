@@ -1,191 +1,250 @@
 /* Pixel Art CSS for Nutcracker Character and Answer Nuts */
 
-/* Nutcracker Character Base */
+/* Nutcracker Character Base - Low Res / Chunky Style */
 .nutcracker {
   position: relative;
-  width: 120px;
-  height: 180px;
+  width: 128px;
+  /* 16 * 8px */
+  height: 192px;
+  /* 24 * 8px */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
+  /* Base scale for mobile/default */
+  transform: scale(1.5);
+  margin: 2rem 0;
+}
+
+/* Common Pixel Unit */
+.nutcracker * {
+  box-sizing: border-box;
 }
 
 /* Head */
 .nutcracker-head {
   position: relative;
-  width: 60px;
+  width: 64px;
+  /* 8 units */
   height: 80px;
+  /* 10 units */
   z-index: 2;
 }
 
 .nutcracker-hat {
-  width: 60px;
-  height: 30px;
-  background: linear-gradient(to bottom, #ff0000 0%, #cc0000 100%);
-  border: 3px solid #000;
-  border-bottom: 4px solid #ffdd00;
+  width: 64px;
+  height: 32px;
+  /* 4 units */
+  background: var(--christmas-red);
+  /* Thick, blocky borders */
   box-shadow:
-    inset 2px 2px 0 rgba(255, 255, 255, 0.3),
-    inset -2px -2px 0 rgba(0, 0, 0, 0.5);
+    inset 8px 8px 0 rgba(255, 255, 255, 0.2),
+    inset -8px -8px 0 rgba(0, 0, 0, 0.3),
+    4px 4px 0 #000,
+    -4px 4px 0 #000,
+    4px -4px 0 #000,
+    -4px -4px 0 #000;
   position: relative;
+  margin-bottom: 0;
 }
 
+/* Hat brim/decoration */
 .nutcracker-hat::after {
   content: '';
   position: absolute;
-  top: -8px;
-  left: 20px;
-  width: 20px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   height: 8px;
-  background: #ff0000;
-  border: 2px solid #000;
+  /* 1 unit */
+  background: var(--christmas-gold);
 }
 
 .nutcracker-face {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  /* 6 units */
+  height: 48px;
+  /* 6 units */
   background: #ffcc99;
-  border: 3px solid #000;
+  margin: 0 auto;
   position: relative;
-  box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.3);
+  box-shadow:
+    4px 0 0 #000,
+    -4px 0 0 #000,
+    0 4px 0 #000;
+  /* Sides and bottom border */
 }
 
 .nutcracker-eyes {
   display: flex;
-  justify-content: space-around;
-  padding: 8px 10px;
+  justify-content: space-between;
+  padding: 12px 8px 0;
+  /* Positioning eyes */
 }
 
 .eye {
   width: 8px;
+  /* 1 unit */
   height: 8px;
+  /* 1 unit */
   background: #000;
-  border-radius: 0;
+  box-shadow: none;
+  /* Pure block */
 }
 
+/* Jaw - The moving part */
 .nutcracker-jaw {
   position: absolute;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 20px;
-  background: #d4a574;
-  border: 3px solid #000;
-  border-top: none;
-  transition: transform 0.3s ease;
+  bottom: 0;
+  left: 8px;
+  /* Center in 48px face (48 - 32) / 2 = 8 */
+  width: 32px;
+  /* 4 units */
+  height: 16px;
+  /* 2 units */
+  background: #000;
+  /* Mouth cavity */
+  transition: height 0.1s steps(2), transform 0.1s steps(2);
 }
 
+/* Teeth - White blocks in the black mouth */
 .teeth {
   display: flex;
   justify-content: space-around;
-  padding: 2px 4px;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  align-items: flex-start;
 }
 
 .teeth::before,
 .teeth::after {
   content: '';
-  width: 4px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background: #fff;
-  border: 1px solid #000;
+  border: none;
+  margin-top: 0;
 }
 
 /* Body */
 .nutcracker-body {
-  width: 50px;
-  height: 60px;
-  background: #0066cc;
-  border: 3px solid #000;
+  width: 48px;
+  /* 6 units */
+  height: 64px;
+  /* 8 units */
+  background: var(--christmas-green);
   position: relative;
-  margin-top: -3px;
   z-index: 1;
-  box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.2);
+  box-shadow:
+    4px 0 0 #000,
+    -4px 0 0 #000,
+    0 4px 0 #000,
+    0 -4px 0 #000;
+  /* Full border */
 }
 
 .nutcracker-coat {
   width: 100%;
   height: 100%;
+  /* Cross belts or details */
+  background-image: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.2) 50%, transparent 50%);
 }
 
 .nutcracker-buttons {
   position: absolute;
-  top: 10px;
+  top: 8px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .button-decoration {
   width: 8px;
   height: 8px;
-  background: #ffdd00;
-  border: 2px solid #000;
-  border-radius: 0;
+  background: var(--christmas-gold);
+  border: none;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Arms */
 .nutcracker-arms {
   position: absolute;
-  top: 80px;
+  top: 88px;
+  /* Align with shoulders */
   width: 100%;
+  pointer-events: none;
 }
 
 .arm {
   position: absolute;
-  width: 20px;
-  height: 50px;
-  background: #0066cc;
-  border: 3px solid #000;
+  width: 16px;
+  /* 2 units */
+  height: 48px;
+  /* 6 units */
+  background: var(--christmas-red);
+  box-shadow:
+    2px 2px 0 #000,
+    -2px -2px 0 #000;
+  /* Pseudo border */
 }
 
 .arm.left {
-  left: -15px;
-  transform: rotate(-20deg);
-  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.2);
+  left: 16px;
+  /* Tucked in */
+  transform: rotate(0deg);
+  /* Straight arms for stiff soldier look */
 }
 
 .arm.right {
-  right: -15px;
-  transform: rotate(20deg);
-  box-shadow: inset -1px 1px 0 rgba(255, 255, 255, 0.2);
+  right: 16px;
+  transform: rotate(0deg);
 }
 
 /* Nut for cracking animation */
 .nut {
   position: absolute;
-  bottom: 20px;
+  bottom: 24px;
+  /* In the mouth area */
   left: 50%;
   transform: translateX(-50%);
-  width: 30px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
   z-index: 3;
 }
 
 .nut-half {
   position: absolute;
-  width: 15px;
-  height: 25px;
+  width: 12px;
+  height: 24px;
   background: #8B4513;
-  border: 3px solid #000;
-  border-radius: 8px 0 0 8px;
+  border: 2px solid #000;
 }
 
 .nut-half.left {
   left: 0;
-  border-radius: 8px 0 0 8px;
 }
 
 .nut-half.right {
   right: 0;
-  border-radius: 0 8px 8px 0;
-  transform-origin: left center;
+}
+
+/* Animations */
+/* Cracking: Jaw moves UP to close */
+.nutcracker-cracking .nutcracker-jaw {
+  height: 8px;
+  /* Closes */
+  transform: translateY(-4px);
+}
+
+/* Broken: Jaw drops down/falls off */
+.nutcracker-broken .nutcracker-jaw {
+  transform: translateY(16px) rotate(15deg);
+  background: var(--christmas-red);
+  /* Pain/Error color */
 }
 
 /* Broken pieces animation */
@@ -198,9 +257,12 @@
 
 .piece {
   position: absolute;
-  font-size: 1.5rem;
-  color: #ff0000;
-  font-weight: bold;
+  width: 8px;
+  height: 8px;
+  background: var(--christmas-red);
+  box-shadow: 2px 2px 0 #000;
+  font-size: 0;
+  /* Hide text X */
 }
 
 .piece1 {
@@ -232,7 +294,7 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 1rem;
-  transition: transform 0.1s ease;
+  transition: transform 0.1s steps(2);
 }
 
 .answer-nut.clickable:hover {
@@ -251,149 +313,333 @@
 .nut-shell {
   position: relative;
   width: 80px;
-  height: 60px;
-  background: linear-gradient(135deg, #8B4513 0%, #654321 100%);
+  height: 72px;
+  background: #CD853F;
+  /* Peru - Walnut color */
   border: 4px solid #000;
-  border-radius: 40% 40% 50% 50%;
+  border-radius: 45%;
+  /* Oval/Walnut shape */
   box-shadow:
-    inset 3px 3px 0 rgba(139, 69, 19, 0.8),
-    inset -3px -3px 0 rgba(0, 0, 0, 0.5),
+    inset 6px 6px 0 rgba(255, 255, 255, 0.2),
+    inset -6px -6px 0 rgba(0, 0, 0, 0.3),
     4px 4px 0 rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
 }
 
 .answer-nut.clickable:hover .nut-shell {
+  background: #D2691E;
+  /* Chocolate - Slightly darker on hover */
   box-shadow:
-    inset 3px 3px 0 rgba(139, 69, 19, 0.8),
-    inset -3px -3px 0 rgba(0, 0, 0, 0.5),
+    inset 6px 6px 0 rgba(255, 255, 255, 0.2),
+    inset -6px -6px 0 rgba(0, 0, 0, 0.3),
     4px 4px 0 rgba(0, 0, 0, 0.5),
-    0 0 15px rgba(255, 255, 0, 0.5);
+    0 0 0 4px var(--christmas-gold);
+  transform: scale(1.05);
 }
 
 .nut-texture {
-  width: 60%;
-  height: 60%;
-  background:
-    repeating-linear-gradient(
-      45deg,
+  width: 70%;
+  height: 80%;
+  opacity: 0.6;
+  background-image:
+    /* Vertical center line (split) */
+    linear-gradient(90deg, transparent 45%, #5D4037 45%, #5D4037 55%, transparent 55%),
+    /* Horizontal wrinkles */
+    repeating-linear-gradient(180deg,
       transparent,
-      transparent 4px,
-      rgba(0, 0, 0, 0.2) 4px,
-      rgba(0, 0, 0, 0.2) 6px
-    );
-  border-radius: 50%;
+      transparent 10px,
+      #5D4037 10px,
+      #5D4037 14px);
+  border-radius: 40%;
 }
 
 .answer-value {
   font-size: 1.25rem;
-  color: var(--color-text);
-  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.7);
+  color: #fff;
+  text-shadow: 2px 2px 0 #000;
   padding: 0.5rem 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  border: 2px solid var(--color-secondary);
+  background: #000;
+  border: 2px solid #fff;
   min-width: 60px;
   text-align: center;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .keyboard-number {
   position: absolute;
-  top: 5px;
-  right: 10px;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 0.25rem 0.5rem;
-  border: 2px solid var(--color-secondary);
-  color: var(--color-secondary);
+  top: -8px;
+  right: -8px;
+  background: var(--christmas-gold);
+  padding: 2px 6px;
+  border: 2px solid #000;
+  color: #000;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6rem;
+  z-index: 10;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
 /* Answer states */
 .answer-nut.correct .nut-shell {
-  background: linear-gradient(135deg, #00ff00 0%, #00cc00 100%);
-  border-color: #00ff00;
-  box-shadow:
-    inset 3px 3px 0 rgba(0, 255, 0, 0.8),
-    inset -3px -3px 0 rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(0, 255, 0, 0.8);
-  animation: correctPulse 0.5s ease;
+  background: var(--christmas-green);
+  border-color: #000;
+  box-shadow: 0 0 0 4px #fff;
+  animation: correctPulse 0.5s steps(4);
 }
 
 .answer-nut.correct .answer-value {
-  border-color: #00ff00;
-  color: #00ff00;
+  border-color: var(--christmas-green);
+  color: var(--christmas-green);
 }
 
 .answer-nut.incorrect .nut-shell {
-  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
-  border-color: #ff0000;
-  box-shadow:
-    inset 3px 3px 0 rgba(255, 0, 0, 0.8),
-    inset -3px -3px 0 rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(255, 0, 0, 0.8);
-  animation: shake 0.5s ease;
+  background: var(--christmas-red);
+  border-color: #000;
+  box-shadow: 0 0 0 4px #000;
+  animation: shake 0.5s steps(4);
 }
 
 .answer-nut.incorrect .answer-value {
-  border-color: #ff0000;
-  color: #ff0000;
+  border-color: var(--christmas-red);
+  color: var(--christmas-red);
 }
 
 @keyframes correctPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-8px);
+  }
+
+  75% {
+    transform: translateX(8px);
+  }
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .nutcracker {
-    width: 100px;
-    height: 150px;
-  }
-
-  .nutcracker-head {
-    width: 50px;
-    height: 70px;
-  }
-
-  .nutcracker-hat {
-    width: 50px;
-    height: 25px;
-  }
-
-  .nutcracker-body {
-    width: 40px;
-    height: 50px;
-  }
+  /* Removed duplicate nutcracker rule */
 
   .answer-nut {
     min-height: 100px;
   }
+}
 
-  .nut-shell {
-    width: 60px;
-    height: 50px;
+/* Desktop Layout Optimization */
+.game-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+/* Desktop/Tablet Breakpoint */
+@media (min-width: 768px) {
+  .game-content-wrapper {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem;
   }
 
-  .answer-value {
-    font-size: 1rem;
+  .game-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    order: 1;
+    /* Nutcracker on left */
+  }
+
+  .answer-area {
+    flex: 1;
+    order: 2;
+    /* Answers on right */
+    max-width: 500px;
+  }
+
+  .answer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .question-display {
+    margin-bottom: 2rem;
+  }
+
+  .question-text {
+    font-size: 2.5rem;
+    /* Larger text on desktop */
+  }
+
+  /* Make Nutcracker larger on desktop */
+  .nutcracker {
+    transform: scale(2.5);
+    margin: 4rem 0;
   }
 }
 
-@media (max-width: 480px) {
-  .nutcracker {
-    width: 80px;
-    height: 120px;
+/* Strike Icons Layout */
+.strike-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: nowrap;
+  /* Prevent wrapping */
+  min-width: max-content;
+  /* Ensure it takes enough space */
+}
+
+.strike-icon {
+  font-size: 1.5rem;
+  color: var(--christmas-gold);
+  text-shadow: 2px 2px 0 #000;
+}
+
+.strike-icon.lost {
+  color: #555;
+  text-shadow: none;
+}
+
+/* Game Stats Spacing */
+.stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  /* Explicit space between label and value */
+  margin-bottom: 0.5rem;
+}
+
+/* New Top Bar Layout */
+.game-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  /* Increased horizontal padding */
+  box-sizing: border-box;
+  /* Ensure padding is included in width */
+}
+
+.question-container-top {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.question-text-large {
+  font-size: 4rem;
+  /* Very large question text */
+  margin: 0;
+  text-shadow: 4px 4px 0 #000;
+  line-height: 1.2;
+}
+
+.stats-container-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* Align stats to the right */
+  gap: 0.5rem;
+}
+
+/* Override .stat for top bar to align right */
+.stats-container-top .stat {
+  justify-content: flex-end;
+}
+
+/* Resized Nutcracker */
+/* Removed duplicate global nutcracker rule */
+
+/* Adjust layout for mobile if needed */
+@media (max-width: 768px) {
+  .game-top-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .nut-shell {
-    width: 50px;
-    height: 40px;
+  .question-container-top {
+    justify-content: center;
+    width: 100%;
   }
+
+  .stats-container-top {
+    align-items: center;
+    width: 100%;
+  }
+
+  .question-text-large {
+    font-size: 2.5rem;
+  }
+
+  /* Removed duplicate mobile nutcracker rule */
+}
+/* Start Screen Character Display */
+.character-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  margin: 2rem 0;
+}
+
+/* Pile of Nuts Decoration */
+.pile-of-nuts {
+  position: relative;
+  width: 120px;
+  height: 100px;
+  /* Container for the pile */
+}
+
+.decor-nut {
+  position: absolute;
+  transform: scale(0.6); /* Smaller than answer nuts */
+  pointer-events: none; /* Purely decorative */
+}
+
+/* Stack the nuts */
+.decor-nut.nut-1 {
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transform: scale(0.6) rotate(-15deg);
+}
+
+.decor-nut.nut-2 {
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  transform: scale(0.6) rotate(15deg);
+}
+
+.decor-nut.nut-3 {
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.6);
+  z-index: 2; /* On top */
 }

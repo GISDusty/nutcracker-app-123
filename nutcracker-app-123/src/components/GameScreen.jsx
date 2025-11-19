@@ -77,71 +77,78 @@ function GameScreen({
   return (
     <div className="screen game-screen">
       {/* Header with game stats */}
-      <div className="game-header">
-        <div className="stat">
-          <span className="stat-label">LEVEL</span>
-          <span className="stat-value">{level}/10</span>
-        </div>
-        <div className="stat">
-          <span className="stat-label">SCORE</span>
-          <span className="stat-value">{score}</span>
-        </div>
-        <div className="stat strikes-display">
-          <span className="stat-label">STRIKES</span>
-          <div className="strike-icons">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className={`strike-icon ${i < strikes ? 'active' : 'lost'}`}
-                aria-label={i < strikes ? 'Strike remaining' : 'Strike lost'}
-              >
-                ♔
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Main game area */}
-      <div className="game-main">
-        {/* Question display */}
-        <div className="question-display">
-          <h2 className="pixel-text question-text">
+      {/* Top Bar: Question (Left) and Stats (Right) */}
+      <div className="game-top-bar">
+        <div className="question-container-top">
+          <h2 className="pixel-text question-text-large">
             {question.question}
           </h2>
         </div>
 
-        {/* Nutcracker character */}
-        <div className="character-area">
-          <Nutcracker state={nutcrackerState} />
-        </div>
-
-        {/* Level complete message */}
-        {showLevelComplete && questionNumber === 5 && (
-          <div className="level-complete-message">
-            {level < 10 ? `LEVEL ${level} COMPLETE!` : 'GAME COMPLETE!'}
+        <div className="stats-container-top">
+          <div className="stat">
+            <span className="stat-label">LEVEL: </span>
+            <span className="stat-value">{level}/10</span>
           </div>
-        )}
+          <div className="stat">
+            <span className="stat-label">SCORE: </span>
+            <span className="stat-value">{score}</span>
+          </div>
+          <div className="stat strikes-display">
+            <span className="stat-label">STRIKES</span>
+            <div className="strike-icons">
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className={`strike-icon ${i < strikes ? 'active' : 'lost'}`}
+                  aria-label={i < strikes ? 'Strike remaining' : 'Strike lost'}
+                >
+                  ♔
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Answer choices */}
-      <div className="answer-area">
-        <div className="answer-grid">
-          {question.answers.map((answer, index) => (
-            <AnswerNut
-              key={index}
-              answer={answer}
-              index={index}
-              onClick={() => handleAnswerClick(answer)}
-              isSelected={selectedAnswer === answer}
-              isCorrect={answer === question.correctAnswer}
-              showResult={selectedAnswer !== null}
-              disabled={selectedAnswer !== null || !gameActive}
-            />
-          ))}
+      {/* Main game content wrapper for desktop layout */}
+      <div className="game-content-wrapper">
+        {/* Main game area (Left Panel on Desktop) */}
+        <div className="game-main">
+          {/* Nutcracker character (Question removed from here) */}
+
+          {/* Nutcracker character */}
+          <div className="character-area">
+            <Nutcracker state={nutcrackerState} />
+          </div>
+
+          {/* Level complete message */}
+          {showLevelComplete && questionNumber === 5 && (
+            <div className="level-complete-message">
+              {level < 10 ? `LEVEL ${level} COMPLETE!` : 'GAME COMPLETE!'}
+            </div>
+          )}
         </div>
-        <div className="keyboard-hint pixel-text-small">
-          Press 1-4 to select answer
+
+        {/* Answer choices (Right Panel on Desktop) */}
+        <div className="answer-area">
+          <div className="answer-grid">
+            {question.answers.map((answer, index) => (
+              <AnswerNut
+                key={index}
+                answer={answer}
+                index={index}
+                onClick={() => handleAnswerClick(answer)}
+                isSelected={selectedAnswer === answer}
+                isCorrect={answer === question.correctAnswer}
+                showResult={selectedAnswer !== null}
+                disabled={selectedAnswer !== null || !gameActive}
+              />
+            ))}
+          </div>
+          <div className="keyboard-hint pixel-text-small">
+            Press 1-4 to select answer
+          </div>
         </div>
       </div>
     </div>
