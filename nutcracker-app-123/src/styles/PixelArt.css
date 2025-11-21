@@ -1,220 +1,324 @@
 /* Pixel Art CSS for Nutcracker Character and Answer Nuts */
 
-/* Nutcracker Character Base - Low Res / Chunky Style */
+/* Nutcracker Character - CSS Pixel Art */
 .nutcracker {
   position: relative;
-  width: 128px;
-  /* 16 * 8px */
-  height: 192px;
-  /* 24 * 8px */
+  width: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  image-rendering: pixelated;
-  /* Base scale for mobile/default */
-  transform: scale(1.5);
+  transform: scale(1.2);
   margin: 2rem 0;
+  transition: transform 0.2s ease;
 }
 
-/* Common Pixel Unit */
-.nutcracker * {
-  box-sizing: border-box;
+.nutcracker.droppable-active {
+  transform: scale(1.3);
+  filter: drop-shadow(0 0 15px #ffd700);
 }
 
-/* Head */
-.nutcracker-head {
+/* Nutcracker Figure */
+.nutcracker-figure {
   position: relative;
-  width: 64px;
-  /* 8 units */
-  height: 80px;
-  /* 10 units */
-  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
 }
 
-.nutcracker-hat {
-  width: 64px;
-  height: 32px;
-  /* 4 units */
-  background: var(--christmas-red);
-  /* Thick, blocky borders */
-  box-shadow:
-    inset 8px 8px 0 rgba(255, 255, 255, 0.2),
-    inset -8px -8px 0 rgba(0, 0, 0, 0.3),
-    4px 4px 0 #000,
-    -4px 4px 0 #000,
-    4px -4px 0 #000,
-    -4px -4px 0 #000;
+/* Hat */
+.hat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.hat-top {
+  width: 60px;
+  height: 40px;
+  background: #000;
+  border: 3px solid #000;
   position: relative;
-  margin-bottom: 0;
 }
 
-/* Hat brim/decoration */
-.nutcracker-hat::after {
+.hat-top::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 8px;
-  /* 1 unit */
-  background: var(--christmas-gold);
+  top: 8px;
+  left: 8px;
+  width: 12px;
+  height: 12px;
+  background: #ffd700;
+  border: 2px solid #000;
 }
 
-.nutcracker-face {
-  width: 48px;
-  /* 6 units */
-  height: 48px;
-  /* 6 units */
-  background: #ffcc99;
-  margin: 0 auto;
+.hat-brim {
+  width: 80px;
+  height: 12px;
+  background: #000;
+  border: 3px solid #000;
+  margin-top: -3px;
+}
+
+/* Face */
+.face {
+  width: 70px;
+  background: #FFE4C4;
+  border: 3px solid #000;
+  padding: 8px;
   position: relative;
-  box-shadow:
-    4px 0 0 #000,
-    -4px 0 0 #000,
-    0 4px 0 #000;
-  /* Sides and bottom border */
+  z-index: 5;
 }
 
-.nutcracker-eyes {
+.eyes {
   display: flex;
   justify-content: space-between;
-  padding: 12px 8px 0;
-  /* Positioning eyes */
+  margin-bottom: 4px;
 }
 
 .eye {
   width: 8px;
-  /* 1 unit */
   height: 8px;
-  /* 1 unit */
   background: #000;
-  box-shadow: none;
-  /* Pure block */
+  border-radius: 50%;
 }
 
-/* Jaw - The moving part */
-.nutcracker-jaw {
-  position: absolute;
-  bottom: 0;
-  left: 8px;
-  /* Center in 48px face (48 - 32) / 2 = 8 */
-  width: 32px;
-  /* 4 units */
-  height: 16px;
-  /* 2 units */
-  background: #000;
-  /* Mouth cavity */
-  transition: height 0.1s steps(2), transform 0.1s steps(2);
-}
-
-/* Teeth - White blocks in the black mouth */
-.teeth {
+.cheeks {
   display: flex;
-  justify-content: space-around;
-  padding: 0;
+  justify-content: space-between;
+  position: absolute;
   width: 100%;
-  height: 100%;
-  align-items: flex-start;
+  top: 20px;
+  left: 0;
+  padding: 0 4px;
+  box-sizing: border-box;
 }
 
-.teeth::before,
-.teeth::after {
-  content: '';
-  width: 8px;
+.cheek {
+  width: 12px;
+  height: 12px;
+  background: #ff9999;
+  border-radius: 50%;
+}
+
+.nose {
+  width: 12px;
+  height: 16px;
+  background: #FFB6C1;
+  margin: 4px auto;
+  border: 2px solid #000;
+}
+
+.mustache {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.mustache-part {
+  width: 20px;
   height: 8px;
   background: #fff;
-  border: none;
-  margin-top: 0;
+  border: 2px solid #000;
+  border-radius: 50% 50% 0 0;
+}
+
+.beard {
+  width: 100%;
+  height: 12px;
+  background: #fff;
+  border-top: 2px solid #000;
+}
+
+.mouth-area {
+  margin-top: -8px;
+}
+
+.jaw {
+  width: 40px;
+  height: 16px;
+  background: #FFE4C4;
+  border: 3px solid #000;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 4;
+}
+
+.jaw::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: #000;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
 }
 
 /* Body */
-.nutcracker-body {
-  width: 48px;
-  /* 6 units */
-  height: 64px;
-  /* 8 units */
-  background: var(--christmas-green);
-  position: relative;
-  z-index: 1;
-  box-shadow:
-    4px 0 0 #000,
-    -4px 0 0 #000,
-    0 4px 0 #000,
-    0 -4px 0 #000;
-  /* Full border */
-}
-
-.nutcracker-coat {
-  width: 100%;
-  height: 100%;
-  /* Cross belts or details */
-  background-image: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.2) 50%, transparent 50%);
-}
-
-.nutcracker-buttons {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
+.body {
+  width: 90px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  align-items: center;
+  position: relative;
+  z-index: 3;
 }
 
-.button-decoration {
-  width: 8px;
-  height: 8px;
-  background: var(--christmas-gold);
-  border: none;
-  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+.shoulders {
+  width: 90px;
+  height: 20px;
+  background: var(--christmas-red);
+  border: 3px solid #000;
+  border-bottom: none;
 }
 
-/* Arms */
-.nutcracker-arms {
-  position: absolute;
-  top: 88px;
-  /* Align with shoulders */
+.torso {
+  width: 80px;
+  background: var(--christmas-red);
+  border: 3px solid #000;
+  padding: 8px;
+  position: relative;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.buttons::before,
+.buttons::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: #ffd700;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: block;
+}
+
+.belt {
   width: 100%;
-  pointer-events: none;
+  height: 12px;
+  background: #000;
+  margin-top: 8px;
+  position: relative;
+}
+
+.belt::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #ffd700;
+  border: 2px solid #000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.arms {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+  position: absolute;
+  top: 20px;
 }
 
 .arm {
-  position: absolute;
   width: 16px;
-  /* 2 units */
-  height: 48px;
-  /* 6 units */
+  height: 50px;
   background: var(--christmas-red);
-  box-shadow:
-    2px 2px 0 #000,
-    -2px -2px 0 #000;
-  /* Pseudo border */
+  border: 3px solid #000;
 }
 
 .arm.left {
-  left: 16px;
-  /* Tucked in */
-  transform: rotate(0deg);
-  /* Straight arms for stiff soldier look */
+  transform: rotate(-15deg);
 }
 
 .arm.right {
-  right: 16px;
-  transform: rotate(0deg);
+  transform: rotate(15deg);
 }
 
-/* Nut for cracking animation */
+/* Legs */
+.legs {
+  display: flex;
+  gap: 8px;
+  margin-top: -3px;
+}
+
+.leg {
+  width: 28px;
+  height: 30px;
+  background: #000;
+  border: 3px solid #000;
+}
+
+/* Boots */
+.boots {
+  display: flex;
+  gap: 8px;
+  margin-top: -3px;
+}
+
+.boot {
+  width: 32px;
+  height: 20px;
+  background: #000;
+  border: 3px solid #000;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Animations */
+/* Cracking: Jaw moves UP to close */
+.nutcracker-cracking .jaw {
+  transform: translateY(-8px);
+  animation: jawCrunch 0.3s ease-in-out;
+}
+
+@keyframes jawCrunch {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Broken: Visual damage */
+.nutcracker-broken .nutcracker-figure {
+  filter: grayscale(50%) sepia(30%) hue-rotate(-30deg);
+  transform: rotate(5deg);
+}
+
+.nutcracker-broken .jaw {
+  transform: translateY(12px) rotate(15deg);
+  background: var(--christmas-red);
+}
+
+/* Nut positioning for the CSS version */
 .nut {
   position: absolute;
-  bottom: 24px;
-  /* In the mouth area */
+  bottom: 45%;
   left: 50%;
   transform: translateX(-50%);
   width: 24px;
   height: 24px;
   z-index: 3;
 }
+
+
+/* Nut for cracking animation */
+
 
 .nut-half {
   position: absolute;
@@ -295,6 +399,16 @@
   gap: 0.5rem;
   padding: 1rem;
   transition: transform 0.1s steps(2);
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.answer-nut:focus,
+.answer-nut:active,
+.answer-nut:focus-visible {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .answer-nut.clickable:hover {
@@ -599,6 +713,7 @@
 
   /* Removed duplicate mobile nutcracker rule */
 }
+
 /* Start Screen Character Display */
 .character-display {
   display: flex;
@@ -618,8 +733,10 @@
 
 .decor-nut {
   position: absolute;
-  transform: scale(0.6); /* Smaller than answer nuts */
-  pointer-events: none; /* Purely decorative */
+  transform: scale(0.6);
+  /* Smaller than answer nuts */
+  pointer-events: none;
+  /* Purely decorative */
 }
 
 /* Stack the nuts */
@@ -641,5 +758,6 @@
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%) scale(0.6);
-  z-index: 2; /* On top */
+  z-index: 2;
+  /* On top */
 }

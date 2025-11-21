@@ -1,37 +1,62 @@
-// Nutcracker character component with CSS-based pixel art
-// States: idle, cracking (correct), broken (incorrect)
+import { useDroppable } from '@dnd-kit/core';
+
 
 function Nutcracker({ state = 'idle' }) {
+  const { isOver, setNodeRef } = useDroppable({
+    id: 'nutcracker',
+  });
+
+  const droppableClass = isOver ? 'droppable-active' : '';
+
   return (
-    <div className={`nutcracker nutcracker-${state}`} aria-label={`Nutcracker ${state}`}>
-      {/* Head */}
-      <div className="nutcracker-head">
-        <div className="nutcracker-hat"></div>
-        <div className="nutcracker-face">
-          <div className="nutcracker-eyes">
+    <div
+      ref={setNodeRef}
+      className={`nutcracker nutcracker-${state} ${droppableClass}`}
+      aria-label={`Nutcracker ${state}`}
+    >
+      <div className="nutcracker-figure">
+        <div className="hat">
+          <div className="hat-top"></div>
+          <div className="hat-brim"></div>
+        </div>
+        <div className="face">
+          <div className="eyes">
             <div className="eye left"></div>
             <div className="eye right"></div>
           </div>
-          <div className={`nutcracker-jaw ${state === 'broken' ? 'broken' : ''}`}>
-            <div className="teeth"></div>
+          <div className="cheeks">
+            <div className="cheek left"></div>
+            <div className="cheek right"></div>
+          </div>
+          <div className="nose"></div>
+          <div className="mustache">
+            <div className="mustache-part left"></div>
+            <div className="mustache-part right"></div>
+          </div>
+          <div className="beard"></div>
+          <div className="mouth-area">
+            <div className="jaw"></div>
           </div>
         </div>
-      </div>
-
-      {/* Body */}
-      <div className="nutcracker-body">
-        <div className="nutcracker-coat"></div>
-        <div className="nutcracker-buttons">
-          <div className="button-decoration"></div>
-          <div className="button-decoration"></div>
-          <div className="button-decoration"></div>
+        <div className="body">
+          <div className="shoulders"></div>
+          <div className="torso">
+            <div className="buttons"></div>
+            <div className="belt"></div>
+          </div>
+          <div className="arms">
+            <div className="arm left"></div>
+            <div className="arm right"></div>
+          </div>
         </div>
-      </div>
-
-      {/* Arms */}
-      <div className="nutcracker-arms">
-        <div className="arm left"></div>
-        <div className="arm right"></div>
+        <div className="legs">
+          <div className="leg left"></div>
+          <div className="leg right"></div>
+        </div>
+        <div className="boots">
+          <div className="boot left"></div>
+          <div className="boot right"></div>
+        </div>
       </div>
 
       {/* Nut (shown during cracking animation) */}

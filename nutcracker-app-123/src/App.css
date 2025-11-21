@@ -11,9 +11,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -22,6 +24,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -39,4 +42,26 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Dragging Highlight */
+.nut-dragging-highlight {
+  box-shadow: 0 0 15px #ffd700, 0 0 5px #fff;
+  /* Gold glow */
+  filter: brightness(1.2);
+  transform: scale(1.1);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Force remove all outlines/borders on answer nuts in all states */
+.answer-nut,
+.answer-nut:focus,
+.answer-nut:focus-visible,
+.answer-nut:active,
+.answer-nut:hover {
+  outline: none !important;
+  outline-style: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
 }
