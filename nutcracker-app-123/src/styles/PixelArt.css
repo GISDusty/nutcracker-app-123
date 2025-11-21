@@ -1,6 +1,26 @@
 /* Pixel Art CSS for Nutcracker Character and Answer Nuts */
 
-/* Nutcracker Character - CSS Pixel Art */
+/* Pixel Art CSS for Nutcracker Character and Answer Nuts */
+
+/* Nutcracker Character - Stardew Style */
+:root {
+  /* Stardew-inspired Palette */
+  --sd-red: #A80000;
+  --sd-red-dark: #7A0000;
+  --sd-red-light: #D40000;
+  --sd-skin: #FFCC99;
+  --sd-skin-shadow: #E0AA7E;
+  --sd-gold: #FFD700;
+  --sd-gold-shadow: #C5A000;
+  --sd-black: #1A1A1A;
+  --sd-black-light: #333333;
+  --sd-white: #F0F0F0;
+  --sd-white-shadow: #D0D0D0;
+  --sd-hair: #E0E0E0;
+  /* White hair */
+  --sd-hair-shadow: #BDBDBD;
+}
+
 .nutcracker {
   position: relative;
   width: auto;
@@ -9,303 +29,371 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform: scale(1.2);
-  margin: 2rem 0;
+  transform: scale(2.5);
+  /* Base scale for pixel art */
+  margin: 2rem 2rem;
   transition: transform 0.2s ease;
+  image-rendering: pixelated;
 }
 
 .nutcracker.droppable-active {
-  transform: scale(1.3);
-  filter: drop-shadow(0 0 15px #ffd700);
+  transform: scale(2.6) !important;
+  filter: drop-shadow(0 0 10px var(--sd-gold));
 }
 
-/* Nutcracker Figure */
-.nutcracker-figure {
+/* Nutcracker Figure Container */
+.nutcracker-figure.stardew-style {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  /* Pixel art scaling trick: use box-shadows for 1px borders if needed, 
+     but here we use explicit divs for cleaner DOM structure */
 }
 
-/* Hat */
-.hat {
+/* --- HAT --- */
+.hat-layer {
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 10;
 }
 
 .hat-top {
-  width: 60px;
-  height: 40px;
-  background: #000;
-  border: 3px solid #000;
+  width: 24px;
+  height: 20px;
+  background: var(--sd-black);
   position: relative;
 }
 
-.hat-top::after {
-  content: '';
+.hat-shading {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  width: 12px;
-  height: 12px;
-  background: #ffd700;
-  border: 2px solid #000;
+  right: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  /* Highlight */
+}
+
+.hat-badge {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 6px;
+  height: 8px;
+  background: var(--sd-gold);
+  box-shadow: 1px 1px 0 var(--sd-gold-shadow);
 }
 
 .hat-brim {
-  width: 80px;
-  height: 12px;
-  background: #000;
-  border: 3px solid #000;
-  margin-top: -3px;
+  width: 32px;
+  height: 4px;
+  background: var(--sd-black-light);
+  margin-top: -1px;
+  position: relative;
 }
 
-/* Face */
-.face {
-  width: 70px;
-  background: #FFE4C4;
-  border: 3px solid #000;
-  padding: 8px;
+/* --- HEAD --- */
+.head-layer {
   position: relative;
   z-index: 5;
+  margin-top: -2px;
+  /* Tuck under hat */
 }
 
-.eyes {
+.face-base {
+  width: 22px;
+  height: 24px;
+  background: var(--sd-skin);
+  position: relative;
+  border-left: 1px solid var(--sd-skin-shadow);
+  border-right: 1px solid var(--sd-skin-shadow);
+}
+
+.face-shading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--sd-skin-shadow);
+}
+
+.hair-back {
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 26px;
+  height: 12px;
+  background: var(--sd-hair);
+  z-index: -1;
+}
+
+.hair-side {
+  position: absolute;
+  top: 0;
+  width: 3px;
+  height: 14px;
+  background: var(--sd-hair);
+  border-bottom: 1px solid var(--sd-hair-shadow);
+}
+
+.hair-side.left {
+  left: -2px;
+}
+
+.hair-side.right {
+  right: -2px;
+}
+
+.eyes-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 4px;
+  padding: 6px 4px 0;
 }
 
 .eye {
-  width: 8px;
-  height: 8px;
-  background: #000;
-  border-radius: 50%;
+  width: 2px;
+  height: 4px;
+  background: var(--sd-black);
 }
 
-.cheeks {
+.cheeks-row {
   display: flex;
   justify-content: space-between;
-  position: absolute;
-  width: 100%;
-  top: 20px;
-  left: 0;
-  padding: 0 4px;
-  box-sizing: border-box;
+  padding: 1px 2px 0;
+  opacity: 0.6;
 }
 
 .cheek {
-  width: 12px;
-  height: 12px;
-  background: #ff9999;
-  border-radius: 50%;
+  width: 3px;
+  height: 2px;
+  background: #FF9999;
+  border-radius: 1px;
 }
 
 .nose {
-  width: 12px;
-  height: 16px;
-  background: #FFB6C1;
-  margin: 4px auto;
-  border: 2px solid #000;
+  width: 2px;
+  height: 3px;
+  background: var(--sd-skin-shadow);
+  margin: 0 auto;
+  opacity: 0.8;
+}
+
+.mustache-container {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin-top: 1px;
 }
 
 .mustache {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 4px;
+  width: 5px;
+  height: 3px;
+  background: var(--sd-hair);
+  border-bottom: 1px solid var(--sd-hair-shadow);
 }
 
-.mustache-part {
-  width: 20px;
-  height: 8px;
-  background: #fff;
-  border: 2px solid #000;
-  border-radius: 50% 50% 0 0;
+.beard-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 0;
 }
 
 .beard {
-  width: 100%;
-  height: 12px;
-  background: #fff;
-  border-top: 2px solid #000;
+  width: 14px;
+  height: 4px;
+  background: var(--sd-hair);
+  border-radius: 0 0 4px 4px;
 }
 
-.mouth-area {
-  margin-top: -8px;
+.mouth-container {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .jaw {
-  width: 40px;
-  height: 16px;
-  background: #FFE4C4;
-  border: 3px solid #000;
-  margin: 0 auto;
-  transition: transform 0.3s ease;
+  width: 10px;
+  height: 4px;
+  background: var(--sd-skin);
+  border: 1px solid var(--sd-black);
+  transition: transform 0.1s steps(2);
+}
+
+/* --- BODY --- */
+.body-layer {
   position: relative;
   z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -1px;
 }
 
-.jaw::before {
-  content: '';
+.collar {
+  width: 14px;
+  height: 2px;
+  background: var(--sd-gold);
+  z-index: 5;
+}
+
+.torso-base {
+  width: 20px;
+  height: 24px;
+  background: var(--sd-red);
+  position: relative;
+}
+
+.torso-shading {
   position: absolute;
+  right: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--sd-red-dark);
+}
+
+.buttons-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-top: 4px;
+}
+
+.button {
+  width: 2px;
+  height: 2px;
+  background: var(--sd-gold);
+}
+
+.belt-container {
+  position: absolute;
+  bottom: 4px;
   width: 100%;
+  height: 3px;
+  background: var(--sd-black);
+}
+
+.belt-buckle {
+  width: 4px;
   height: 4px;
-  background: #000;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
+  background: var(--sd-gold);
+  margin: -0.5px auto 0;
+  border: 1px solid var(--sd-gold-shadow);
 }
 
-/* Body */
-.body {
-  width: 90px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 3;
-}
-
-.shoulders {
-  width: 90px;
-  height: 20px;
-  background: var(--christmas-red);
-  border: 3px solid #000;
-  border-bottom: none;
-}
-
-.torso {
-  width: 80px;
-  background: var(--christmas-red);
-  border: 3px solid #000;
-  padding: 8px;
-  position: relative;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-}
-
-.buttons::before,
-.buttons::after {
-  content: '';
-  width: 10px;
-  height: 10px;
-  background: #ffd700;
-  border: 2px solid #000;
-  border-radius: 50%;
-  display: block;
-}
-
-.belt {
-  width: 100%;
-  height: 12px;
-  background: #000;
-  margin-top: 8px;
-  position: relative;
-}
-
-.belt::after {
-  content: '';
+.shoulders-row {
   position: absolute;
-  width: 16px;
-  height: 16px;
-  background: #ffd700;
-  border: 2px solid #000;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.arms {
+  top: 0;
+  width: 28px;
   display: flex;
   justify-content: space-between;
-  width: 120px;
+}
+
+.epaulette {
+  width: 6px;
+  height: 4px;
+  background: var(--sd-gold);
+  border-radius: 2px;
+}
+
+.arms-layer {
   position: absolute;
-  top: 20px;
+  top: 4px;
+  width: 34px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .arm {
-  width: 16px;
-  height: 50px;
-  background: var(--christmas-red);
-  border: 3px solid #000;
+  width: 5px;
+  height: 18px;
+  background: var(--sd-red);
+  border-right: 1px solid var(--sd-red-dark);
+  position: relative;
 }
 
-.arm.left {
-  transform: rotate(-15deg);
+.cuff {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--sd-gold);
 }
 
-.arm.right {
-  transform: rotate(15deg);
-}
-
-/* Legs */
-.legs {
+/* --- LEGS --- */
+.legs-layer {
+  position: relative;
+  z-index: 3;
   display: flex;
-  gap: 8px;
-  margin-top: -3px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -1px;
 }
 
-.leg {
-  width: 28px;
-  height: 30px;
-  background: #000;
-  border: 3px solid #000;
+.pants {
+  width: 18px;
+  height: 12px;
+  background: #2C3E50;
+  /* Dark blue pants */
+  position: relative;
 }
 
-/* Boots */
-.boots {
+.pants-shading {
+  position: absolute;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: #1A252F;
+}
+
+.boots-row {
   display: flex;
-  gap: 8px;
-  margin-top: -3px;
+  gap: 2px;
 }
 
 .boot {
-  width: 32px;
-  height: 20px;
-  background: #000;
-  border: 3px solid #000;
-  border-radius: 0 0 8px 8px;
+  width: 8px;
+  height: 10px;
+  background: var(--sd-black);
+  position: relative;
 }
 
-/* Animations */
-/* Cracking: Jaw moves UP to close */
+.boot-highlight {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 2px;
+  height: 2px;
+  background: #555;
+}
+
+/* --- ANIMATIONS --- */
+
+/* Cracking: Jaw moves UP */
 .nutcracker-cracking .jaw {
-  transform: translateY(-8px);
-  animation: jawCrunch 0.3s ease-in-out;
-}
-
-@keyframes jawCrunch {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
+  transform: translateY(-3px);
 }
 
 /* Broken: Visual damage */
 .nutcracker-broken .nutcracker-figure {
-  filter: grayscale(50%) sepia(30%) hue-rotate(-30deg);
-  transform: rotate(5deg);
+  filter: grayscale(80%) sepia(20%) hue-rotate(-40deg);
+  transform: rotate(10deg);
 }
 
 .nutcracker-broken .jaw {
-  transform: translateY(12px) rotate(15deg);
-  background: var(--christmas-red);
+  transform: translateY(6px) rotate(20deg);
+  background: var(--sd-red);
 }
 
-/* Nut positioning for the CSS version */
+/* Nut positioning */
 .nut {
   position: absolute;
   bottom: 45%;
@@ -605,10 +693,25 @@
     /* Larger text on desktop */
   }
 
-  /* Make Nutcracker larger on desktop */
-  .nutcracker {
-    transform: scale(2.5);
-    margin: 4rem 0;
+  /* Context-specific sizing for Start Screen */
+  .start-screen .nutcracker {
+    transform: scale(2.2) !important;
+    margin: 2rem 2rem;
+  }
+
+  /* Context-specific sizing for Game Screen */
+  .game-screen .nutcracker {
+    transform: scale(4.5) !important;
+    margin: 4rem 4rem;
+  }
+
+  /* Active state adjustments for each context */
+  .start-screen .nutcracker.droppable-active {
+    transform: scale(2.3) !important;
+  }
+
+  .game-screen .nutcracker.droppable-active {
+    transform: scale(4.6) !important;
   }
 }
 
