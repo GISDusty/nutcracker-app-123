@@ -29,7 +29,7 @@ Using GitHub is the recommended way to deploy to Vercel. It provides automatic d
 3.  **Push to GitHub**
     Follow the instructions provided by GitHub to push your existing repository:
     ```bash
-    git remote add origin https://github.com/YOUR_USERNAME/nutcracker-app-123.git
+    git remote add origin https://github.com/GISDusty/nutcracker-app-123.git
     git branch -M main
     git push -u origin main
     ```
