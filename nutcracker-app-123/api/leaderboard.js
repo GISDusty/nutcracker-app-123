@@ -44,17 +44,58 @@ export default async function handler(req, res) {
  */
 async function handleGet(req, res) {
   try {
-    // Query top 10 scores ordered by score DESC
-    const result = await sql`
-      SELECT initials, score, created_at
-      FROM leaderboard
-      ORDER BY score DESC, created_at ASC
-      LIMIT 10
-    `;
+    // Get age group from query params
+    const { ageGroup } = req.query;
+
+    let result;
+
+    if (ageGroup === '5_under') {
+      result = await sql`
+        SELECT initials, score, age, created_at
+        FROM leaderboard
+        WHERE age <= 5
+        ORDER BY score DESC, created_at ASC
+        LIMIT 10
+      `;
+    } else if (ageGroup === '6_7') {
+      result = await sql`
+        SELECT initials, score, age, created_at
+        FROM leaderboard
+        WHERE age >= 6 AND age <= 7
+        ORDER BY score DESC, created_at ASC
+        LIMIT 10
+      `;
+    } else if (ageGroup === '8_10') {
+      result = await sql`
+        SELECT initials, score, age, created_at
+        FROM leaderboard
+        WHERE age >= 8 AND age <= 10
+        ORDER BY score DESC, created_at ASC
+        LIMIT 10
+      `;
+    } else if (ageGroup === '11_up') {
+      result = await sql`
+        SELECT initials, score, age, created_at
+        FROM leaderboard
+        WHERE age >= 11
+        ORDER BY score DESC, created_at ASC
+        LIMIT 10
+      `;
+    } else {
+      // Default: show all or handle legacy behavior
+      // For now, let's just show top 10 overall if no group specified
+      result = await sql`
+        SELECT initials, score, age, created_at
+        FROM leaderboard
+        ORDER BY score DESC, created_at ASC
+        LIMIT 10
+      `;
+    }
 
     const leaderboard = result.rows.map(row => ({
       initials: row.initials,
       score: row.score,
+      age: row.age,
       createdAt: row.created_at
     }));
 
@@ -78,7 +119,7 @@ async function handleGet(req, res) {
  */
 async function handlePost(req, res) {
   try {
-    const { initials, score } = req.body;
+    const { initials, score, age } = req.body;
 
     // Validate initials
     if (!initials || typeof initials !== 'string') {
@@ -124,16 +165,38 @@ async function handlePost(req, res) {
       });
     }
 
+    // Validate age
+    if (typeof age !== 'number') {
+      return res.status(400).json({
+        error: 'Validation error',
+        message: 'Age must be a number'
+      });
+    }
+
+    if (age < 0 || age > 120) {
+      return res.status(400).json({
+        error: 'Validation error',
+        message: 'Age must be between 0 and 120'
+      });
+    }
+
+    if (!Number.isInteger(age)) {
+      return res.status(400).json({
+        error: 'Validation error',
+        message: 'Age must be an integer'
+      });
+    }
+
     // Insert score into database
     await sql`
-      INSERT INTO leaderboard (initials, score)
-      VALUES (${initials}, ${score})
+      INSERT INTO leaderboard (initials, score, age)
+      VALUES (${initials}, ${score}, ${age})
     `;
 
     return res.status(201).json({
       success: true,
       message: 'Score submitted successfully',
-      data: { initials, score }
+      data: { initials, score, age }
     });
   } catch (error) {
     console.error('POST Error:', error);

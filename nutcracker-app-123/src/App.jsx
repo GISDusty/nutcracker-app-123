@@ -155,6 +155,7 @@ function App() {
             onCorrectAnswer={handleCorrectAnswer}
             onIncorrectAnswer={handleIncorrectAnswer}
             gameActive={gameActive}
+            onMainMenu={() => navigateTo('start')}
           />
         );
 

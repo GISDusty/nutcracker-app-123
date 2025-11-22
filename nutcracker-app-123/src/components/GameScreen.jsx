@@ -17,12 +17,14 @@ function GameScreen({
   strikes,
   onCorrectAnswer,
   onIncorrectAnswer,
-  gameActive
+  gameActive,
+  onMainMenu
 }) {
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [nutcrackerState, setNutcrackerState] = useState('idle');
   const [showLevelComplete, setShowLevelComplete] = useState(false);
+  const [showAbandonModal, setShowAbandonModal] = useState(false);
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -180,9 +182,74 @@ function GameScreen({
               Drag nut to nutcracker or press 1-4
             </div>
           </div>
+
+          {/* Abandon Game Button */}
+          <button
+            className="pixel-button abandon-button"
+            onClick={() => setShowAbandonModal(true)}
+            aria-label="Abandon Game"
+            style={{
+              position: 'absolute',
+              bottom: '20px',
+              left: '20px',
+              zIndex: 10,
+              fontSize: '0.8rem',
+              padding: '8px 12px',
+              backgroundColor: '#e74c3c',
+              color: 'white',
+              border: '4px solid #c0392b'
+            }}
+          >
+            ABANDON GAME
+          </button>
+
+          {/* Abandon Game Confirmation Modal */}
+          {showAbandonModal && (
+            <div className="modal-overlay" style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              zIndex: 1000
+            }}>
+              <div className="modal-content pixel-container" style={{
+                backgroundColor: '#2c3e50',
+                padding: '30px',
+                border: '4px solid #ecf0f1',
+                textAlign: 'center',
+                maxWidth: '400px'
+              }}>
+                <h2 className="pixel-text" style={{ marginBottom: '20px', color: '#e74c3c' }}>ABANDON GAME?</h2>
+                <p className="pixel-text-small" style={{ marginBottom: '30px', color: '#ecf0f1' }}>
+                  Are you sure you want to quit? Your progress will be lost.
+                </p>
+                <div className="button-group" style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+                  <button
+                    className="pixel-button"
+                    onClick={() => setShowAbandonModal(false)}
+                    style={{ minWidth: '100px' }}
+                  >
+                    NO
+                  </button>
+                  <button
+                    className="pixel-button primary"
+                    onClick={onMainMenu}
+                    style={{ minWidth: '100px', backgroundColor: '#e74c3c', borderColor: '#c0392b' }}
+                  >
+                    YES
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </DndContext>
+    </DndContext >
   );
 }
 

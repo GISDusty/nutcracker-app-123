@@ -1,31 +1,19 @@
 {
   "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
-  "env": {
-    "POSTGRES_URL": "@postgres_url",
-    "POSTGRES_PRISMA_URL": "@postgres_prisma_url",
-    "POSTGRES_URL_NON_POOLING": "@postgres_url_non_pooling",
-    "POSTGRES_USER": "@postgres_user",
-    "POSTGRES_HOST": "@postgres_host",
-    "POSTGRES_PASSWORD": "@postgres_password",
-    "POSTGRES_DATABASE": "@postgres_database"
+  "functions": {
+    "api/*.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
   }
 }

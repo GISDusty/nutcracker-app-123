@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 function GameOverScreen({ score, onPlayAgain, onMainMenu, onShowLeaderboard }) {
   const [isTopTen, setIsTopTen] = useState(false);
   const [initials, setInitials] = useState('');
+  const [age, setAge] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -47,7 +48,7 @@ function GameOverScreen({ score, onPlayAgain, onMainMenu, onShowLeaderboard }) {
   };
 
   const handleSubmit = async () => {
-    if (initials.length !== 3 || submitting) return;
+    if (initials.length !== 3 || !age || submitting) return;
 
     setSubmitting(true);
 
@@ -57,7 +58,7 @@ function GameOverScreen({ score, onPlayAgain, onMainMenu, onShowLeaderboard }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ initials, score }),
+        body: JSON.stringify({ initials, score, age: parseInt(age, 10) }),
       });
 
       if (response.ok) {
@@ -112,10 +113,27 @@ function GameOverScreen({ score, onPlayAgain, onMainMenu, onShowLeaderboard }) {
             />
           </div>
 
+          <div className="age-input-group" style={{ marginTop: '1rem' }}>
+            <label htmlFor="age" className="pixel-text">
+              Enter Your Age:
+            </label>
+            <input
+              id="age"
+              type="number"
+              className="pixel-input"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              min="1"
+              max="120"
+              placeholder="Age"
+              aria-label="Enter your age"
+            />
+          </div>
+
           <button
             className="pixel-button primary"
             onClick={handleSubmit}
-            disabled={initials.length !== 3 || submitting}
+            disabled={initials.length !== 3 || !age || submitting}
             aria-label="Submit to leaderboard"
           >
             {submitting ? 'SUBMITTING...' : 'SUBMIT TO LEADERBOARD'}
