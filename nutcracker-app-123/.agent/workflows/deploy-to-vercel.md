@@ -11,6 +11,7 @@ Using GitHub is the recommended way to deploy to Vercel. It provides automatic d
 - A GitHub account.
 - A Vercel account linked to your GitHub.
 - Git installed locally.
+- Vercel CLI installed (optional, but recommended for local dev): `npm i -g vercel`
 
 ## Steps
 
@@ -50,9 +51,9 @@ Using GitHub is the recommended way to deploy to Vercel. It provides automatic d
     - Select **Postgres**.
     - Click **Create New**.
     - Accept the terms and click **Create**.
-    - Choose a region (e.g., Washington, D.C., USA - iad1).
+    - Choose a region (e.g., Washington, D.C., USA - iad1). **Tip**: Choose a region close to your users.
     - Click **Connect**.
-    - **IMPORTANT**: Since you are using GitHub, Vercel will automatically add the environment variables to your deployment. You *may* need to redeploy for them to take effect if the database was added *after* the initial deployment started.
+    - **IMPORTANT**: Since you are using GitHub, Vercel will automatically add the environment variables (`POSTGRES_URL`, etc.) to your deployment. You *may* need to redeploy for them to take effect if the database was added *after* the initial deployment started.
     - To redeploy: Go to **Deployments** -> Click the three dots on the latest deployment -> **Redeploy**.
 
 6.  **Run Database Migration**
@@ -80,15 +81,30 @@ Using GitHub is the recommended way to deploy to Vercel. It provides automatic d
 
 To use the Vercel Postgres database locally:
 
-1.  Link your local project:
+1.  **Install Vercel CLI** (if not installed):
+    ```bash
+    npm i -g vercel
+    ```
+
+2.  **Link your local project**:
     ```bash
     vercel link
     ```
-2.  Pull environment variables:
+    Follow the prompts to link to your existing Vercel project.
+
+3.  **Pull environment variables**:
     ```bash
     vercel env pull .env.development.local
     ```
-3.  Run the dev server:
+    This downloads the necessary credentials to connect to your remote Vercel Postgres database from your local machine.
+
+4.  **Run the dev server**:
     ```bash
     npm run dev
     ```
+
+## Troubleshooting
+
+- **Environment Variables Not Loading**: If your app can't connect to the database after deployment, try redeploying. Vercel injects environment variables at build time, so if you added the database *after* the build started, the variables won't be there yet.
+- **Database Connection Errors**: Ensure you've selected the correct region for your database. If running locally, make sure you've run `vercel env pull` and that `.env.development.local` exists.
+- **Build Failures**: Check the "Logs" tab in your deployment details on Vercel. Common issues include missing dependencies or build script errors.
