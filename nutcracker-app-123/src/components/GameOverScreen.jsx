@@ -90,11 +90,13 @@ function GameOverScreen({ score, onPlayAgain, onMainMenu, onShowLeaderboard }) {
         {getPerformanceMessage()}
       </div>
 
-      {isTopTen && !submitted && (
+      {!submitted && (
         <div className="top-ten-entry">
-          <div className="congrats-message pixel-text">
-            🎉 You made the Top 10! 🎉
-          </div>
+          {isTopTen && (
+            <div className="congrats-message pixel-text">
+              🎉 You made the Top 10! 🎉
+            </div>
+          )}
 
           <div className="initials-input-group">
             <label htmlFor="initials" className="pixel-text">
