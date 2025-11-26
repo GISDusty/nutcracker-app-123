@@ -1,7 +1,12 @@
 // Vercel Serverless Function for Leaderboard API
 // Handles GET (fetch top 10) and POST (submit score) requests
 
-import { sql } from '@vercel/postgres';
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 /**
  * CORS headers for API responses
@@ -47,52 +52,28 @@ async function handleGet(req, res) {
     // Get age group from query params
     const { ageGroup } = req.query;
 
-    let result;
+    let query = supabase
+      .from('leaderboard')
+      .select('initials, score, age, created_at')
+      .order('score', { ascending: false })
+      .order('created_at', { ascending: true })
+      .limit(10);
 
     if (ageGroup === '5_under') {
-      result = await sql`
-        SELECT initials, score, age, created_at
-        FROM leaderboard
-        WHERE age <= 5
-        ORDER BY score DESC, created_at ASC
-        LIMIT 10
-      `;
+      query = query.lte('age', 5);
     } else if (ageGroup === '6_7') {
-      result = await sql`
-        SELECT initials, score, age, created_at
-        FROM leaderboard
-        WHERE age >= 6 AND age <= 7
-        ORDER BY score DESC, created_at ASC
-        LIMIT 10
-      `;
+      query = query.gte('age', 6).lte('age', 7);
     } else if (ageGroup === '8_10') {
-      result = await sql`
-        SELECT initials, score, age, created_at
-        FROM leaderboard
-        WHERE age >= 8 AND age <= 10
-        ORDER BY score DESC, created_at ASC
-        LIMIT 10
-      `;
+      query = query.gte('age', 8).lte('age', 10);
     } else if (ageGroup === '11_up') {
-      result = await sql`
-        SELECT initials, score, age, created_at
-        FROM leaderboard
-        WHERE age >= 11
-        ORDER BY score DESC, created_at ASC
-        LIMIT 10
-      `;
-    } else {
-      // Default: show all or handle legacy behavior
-      // For now, let's just show top 10 overall if no group specified
-      result = await sql`
-        SELECT initials, score, age, created_at
-        FROM leaderboard
-        ORDER BY score DESC, created_at ASC
-        LIMIT 10
-      `;
+      query = query.gte('age', 11);
     }
 
-    const leaderboard = result.rows.map(row => ({
+    const { data, error } = await query;
+
+    if (error) throw error;
+
+    const leaderboard = data.map(row => ({
       initials: row.initials,
       score: row.score,
       age: row.age,
@@ -102,14 +83,7 @@ async function handleGet(req, res) {
     return res.status(200).json(leaderboard);
   } catch (error) {
     console.error('GET Error:', error);
-
-    // If table doesn't exist, return empty array
-    if (error.message.includes('relation "leaderboard" does not exist')) {
-      console.warn('Leaderboard table does not exist. Please run migration.');
-      return res.status(200).json([]);
-    }
-
-    throw error;
+    return res.status(500).json({ error: error.message });
   }
 }
 
@@ -188,10 +162,12 @@ async function handlePost(req, res) {
     }
 
     // Insert score into database
-    await sql`
-      INSERT INTO leaderboard (initials, score, age)
-      VALUES (${initials}, ${score}, ${age})
-    `;
+    const { data, error } = await supabase
+      .from('leaderboard')
+      .insert([{ initials, score, age }])
+      .select();
+
+    if (error) throw error;
 
     return res.status(201).json({
       success: true,
@@ -200,15 +176,6 @@ async function handlePost(req, res) {
     });
   } catch (error) {
     console.error('POST Error:', error);
-
-    // If table doesn't exist, provide helpful error message
-    if (error.message.includes('relation "leaderboard" does not exist')) {
-      return res.status(500).json({
-        error: 'Database error',
-        message: 'Leaderboard table does not exist. Please run the database migration.'
-      });
-    }
-
-    throw error;
+    return res.status(500).json({ error: error.message });
   }
 }
