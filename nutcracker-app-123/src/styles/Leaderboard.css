@@ -1,0 +1,84 @@
+/* Leaderboard Styles */
+
+.leaderboard-table {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 4px solid #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+}
+
+.leaderboard-header,
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px 100px;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+}
+
+.leaderboard-header {
+  border-bottom: 4px solid #fff;
+  margin-bottom: 1rem;
+  color: var(--christmas-gold);
+}
+
+.leaderboard-row {
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
+}
+
+.leaderboard-row:last-child {
+  border-bottom: none;
+}
+
+.leaderboard-row:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Column Alignment */
+.rank-col {
+  text-align: center;
+  color: var(--christmas-gold);
+}
+
+.initials-col {
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.age-col {
+  text-align: center;
+}
+
+.score-col {
+  text-align: right;
+  padding-right: 1rem;
+  color: var(--christmas-gold);
+}
+
+/* Empty State */
+.empty-message {
+  text-align: center;
+  padding: 2rem;
+  color: #888;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .leaderboard-header,
+  .leaderboard-row {
+    grid-template-columns: 50px 1fr 50px 70px;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .initials-col {
+    padding-left: 0.5rem;
+  }
+  
+  .score-col {
+    padding-right: 0.5rem;
+  }
+}

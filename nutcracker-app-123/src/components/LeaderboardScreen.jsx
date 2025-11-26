@@ -110,7 +110,7 @@ function LeaderboardScreen({ onBack }) {
             <div className="leaderboard-header pixel-text">
               <div className="rank-col">RANK</div>
               <div className="initials-col">PLAYER</div>
-              <div className="age-col" style={{ width: '60px', textAlign: 'center' }}>AGE</div>
+              <div className="age-col">AGE</div>
               <div className="score-col">SCORE</div>
             </div>
 
@@ -124,7 +124,7 @@ function LeaderboardScreen({ onBack }) {
                   <div key={index} className="leaderboard-row pixel-text">
                     <div className="rank-col">{index + 1}</div>
                     <div className="initials-col">{entry.initials}</div>
-                    <div className="age-col" style={{ width: '60px', textAlign: 'center' }}>{entry.age || '-'}</div>
+                    <div className="age-col">{entry.age || '-'}</div>
                     <div className="score-col">{entry.score}</div>
                   </div>
                 ))

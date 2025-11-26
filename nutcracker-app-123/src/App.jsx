@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './styles/App.css';
 import './styles/PixelArt.css';
 import './styles/Animations.css';
+import './styles/Leaderboard.css';
 
 // Components
 import StartScreen from './components/StartScreen';
